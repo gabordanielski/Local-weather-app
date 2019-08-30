@@ -1,0 +1,29 @@
+{
+  "name": "local-weather-app",
+  "version": "1.1.0",
+  "description": "> Simple weather app created with Javascript, jQuery and Bootstrap.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabordanielski/Local-weather-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabordanielski/Local-weather-app/issues"
+  },
+  "homepage": "https://github.com/gabordanielski/Local-weather-app#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.0.2"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0"
+  }
+}

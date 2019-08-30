@@ -1,31 +1,39 @@
-var gulp        = require('gulp');
-var browserSync = require('browser-sync').create();
-var sass        = require('gulp-sass');
+const gulp        = require('gulp');
+const browsersync = require('browser-sync').create();
+const sass        = require('gulp-sass');
 
-// Compile sass into CSS & auto-inject into browsers
-gulp.task('sass', function() {
-    return gulp.src(['node_modules/bootstrap/scss/bootstrap.scss', 'src/scss/*.scss'])
-        .pipe(sass())
+function sassWatch(){
+	return gulp.src(['node_modules/bootstrap/scss/bootstrap.scss', 'src/scss/*.scss'])
+		.pipe(sass())
         .pipe(gulp.dest("src/css"))
-        .pipe(browserSync.stream());
-});
+        .pipe(browsersync.stream());
+}
 
-// Move the javascript files into our /src/js folder
-gulp.task('js', function() {
-    return gulp.src(['node_modules/bootstrap/dist/js/bootstrap.min.js', 'node_modules/jquery/dist/jquery.min.js', 'node_modules/popper.js/dist/umd/popper.min.js'])
-        .pipe(gulp.dest("src/js"))
-        .pipe(browserSync.stream());
-});
+function js(){
+	return gulp
+		.src(['node_modules/bootstrap/dist/js/bootstrap.min.js', 'node_modules/jquery/dist/jquery.min.js', 'node_modules/popper.js/dist/umd/popper.min.js'])
+		.pipe(gulp.dest("src/js"));
+}
 
-// Static Server + watching scss/html files
-gulp.task('serve', ['sass'], function() {
+function browserSync(done) {
+  browsersync.init({
+    server: "./src"
+  });
+  done();
+}
 
-    browserSync.init({
-        server: "./src"  
-    });
+function browserSyncReload(done) {
+  browsersync.reload();
+  done();
+}
 
-    gulp.watch(['node_modules/bootstrap/scss/bootstrap.scss', 'src/scss/*.scss'], ['sass']);
-    gulp.watch("src/*.html").on('change', browserSync.reload);
-});
+function watchFiles() {
+  gulp.watch(['node_modules/bootstrap/scss/bootstrap.scss', 'src/scss/*.scss'], sassWatch);
+  gulp.watch("src/*.html", browserSyncReload);
+}
 
-gulp.task('default', ['js','serve']);
+const build = gulp.series(js);
+const watching = gulp.parallel(watchFiles, browserSync);
+
+exports.build = gulp.series(js,sassWatch);
+exports.watch = watching;

@@ -1,9 +1,10 @@
 $(function() {
 
-  var x = document.getElementById("city");
-  var lat;
-  var lon;
-  var text="";
+  let x = document.getElementById("city");
+  let lat;
+  let lon;
+  let text="";
+  let degress="C";
   function getLocation() {
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -54,13 +55,15 @@ $(function() {
   }
 
   function changeNumber(){
-    if($('a').html() == 'C'){
-      $('.number').html(parseFloat($('.number').html())+273.15);
+    if(degress == "C"){
+      $('.number').html(parseFloat(parseFloat($('.number').html())+273.15).toFixed(2));
+      degress = "K";
       $('a').html('K');
     }
-    else if($('a').html() == 'K'){
-      $('.number').html(parseFloat($('.number').html())-273.15);
-      $('a').html('C');
+    else if(degress == 'K'){
+      $('.number').html(parseFloat(parseFloat($('.number').html())-273.15).toFixed(2));
+      degress = "C";
+      $('a').html('&#176;C');
     }
   }
 
