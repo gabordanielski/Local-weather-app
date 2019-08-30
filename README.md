@@ -22,7 +22,7 @@ Simple project, created to learn more about jQuery, AJAX and API usage.
 * Npm 
 
 ## Status
-Project is: _in progress_.
+Project is: _finished_.
 
 ## Inspiration
 Inspired by Free Code Camp challenge.
